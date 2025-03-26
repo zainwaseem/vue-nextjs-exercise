@@ -3,21 +3,56 @@ import { verifyToken } from "../../auth";
 import { todos } from "@/utils/todosStore";
 import { corsHeaders } from "@/utils/cors";
 
+// Handle OPTIONS request for CORS preflight
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders() });
+}
+
 export async function DELETE(req: NextRequest) {
-  const user = verifyToken(req);
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-  const id = req.nextUrl.pathname.split("/").pop();
-  if (!id) {
-    return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
-  }
-  const index = todos.findIndex((todo) => todo.id.toString() === id);
-  if (index === -1) {
-    return NextResponse.json({ error: "Todo not found" }, { status: 404 });
-  }
+  try {
+    const user = verifyToken(req);
+    if (!user) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        {
+          status: 401,
+          headers: corsHeaders(),
+        }
+      );
+    }
 
-  todos.splice(index, 1);
+    const id = parseInt(req.nextUrl.pathname.split("/").pop() || "0", 10);
+    if (isNaN(id)) {
+      return NextResponse.json(
+        { error: "Invalid ID" },
+        {
+          status: 400,
+          headers: corsHeaders(),
+        }
+      );
+    }
 
-  return NextResponse.json(todos, { headers: corsHeaders() });
+    const index = todos.findIndex((todo) => todo.id === id);
+    if (index === -1) {
+      return NextResponse.json(
+        { error: "Todo not found" },
+        {
+          status: 404,
+          headers: corsHeaders(),
+        }
+      );
+    }
+
+    todos.splice(index, 1);
+
+    return NextResponse.json(todos, { headers: corsHeaders() });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      {
+        status: 500,
+        headers: corsHeaders(),
+      }
+    );
+  }
 }
