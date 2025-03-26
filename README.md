@@ -6,6 +6,10 @@ A full-stack todo application built with Vue.js 3 (frontend) and Next.js (backen
 
 Check out the live application: [Vue.js + Next.js Todo App](https://vue-nextjs-exercise-azi5.vercel.app/)
 
+## Demo Video
+
+Watch the demo video to see how the app works: [Watch Video](frontend/assets/Todo_App_Demo.mp4)
+
 ## Project Structure
 
 ```
