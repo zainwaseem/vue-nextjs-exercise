@@ -17,7 +17,7 @@
         required
       />
       <button type="submit">
-        <PlusIcon size="20" />
+        <SendIcon size="20" />
       </button>
     </form>
 
@@ -38,9 +38,11 @@
 
 <script lang="ts">
 import { ref, onMounted } from "vue";
-import axios from "axios";
 import { useRouter } from "vue-router";
-import { LogOutIcon, PlusIcon, TrashIcon } from "lucide-vue-next";
+import api from "../api/axiosInstance"; // Import Axios instance
+
+// ✅ Import Lucide Icons
+import { Send, Trash, LogOut } from "lucide-vue-next";
 
 interface Todo {
   id: number;
@@ -49,7 +51,11 @@ interface Todo {
 
 export default {
   name: "Todo",
-  components: { LogOutIcon, PlusIcon, TrashIcon },
+  components: {
+    SendIcon: Send,
+    TrashIcon: Trash,
+    LogOutIcon: LogOut,
+  },
   setup() {
     const todos = ref<Todo[]>([]);
     const newTask = ref("");
@@ -58,10 +64,7 @@ export default {
 
     const getTodos = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:3000/api/todos", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await api.get("/todos");
         todos.value = response.data;
       } catch (err) {
         error.value = "Failed to fetch todos";
@@ -70,14 +73,7 @@ export default {
 
     const addTodo = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await axios.post(
-          "http://localhost:3000/api/todos",
-          { task: newTask.value },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const response = await api.post("/todos", { task: newTask.value });
         todos.value = response.data;
         newTask.value = "";
       } catch (err) {
@@ -87,13 +83,7 @@ export default {
 
     const deleteTodo = async (id: number) => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await axios.delete(
-          `http://localhost:3000/api/todos/${id}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const response = await api.delete(`/todos/${id}`);
         todos.value = response.data;
       } catch (err) {
         error.value = "Failed to delete todo";
@@ -121,8 +111,8 @@ export default {
   margin: 50px auto;
   padding: 25px;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   color: #333;
   font-family: "Poppins", sans-serif;
 }
@@ -168,6 +158,16 @@ h1 {
   font-size: 16px;
   color: #065f46;
 }
+.todo-form input:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+}
+
+.todo-form input:disabled {
+  background-color: #f3f4f6;
+  cursor: not-allowed;
+}
 
 .todo-form button {
   background: #10b981;
@@ -185,9 +185,30 @@ h1 {
 }
 
 /* Todo List */
+/* Scrollable Todo List */
 .todo-list {
+  max-height: 500px; /* Set a max height */
+  overflow-y: auto; /* Enable vertical scrolling */
   list-style: none;
   padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #10b981 #f0fdfa; /* Custom scrollbar */
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar for WebKit Browsers */
+.todo-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.todo-list::-webkit-scrollbar-thumb {
+  background: #10b981;
+  border-radius: 10px;
+}
+
+.todo-list::-webkit-scrollbar-track {
+  background: #f0fdfa;
 }
 
 .todo-list li {
