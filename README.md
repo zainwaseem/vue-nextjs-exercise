@@ -120,7 +120,7 @@ VITE_API_URL=http://localhost:3000
 Create a `.env` file in the server directory:
 
 ```
-JWT_SECRET=your-secret-key
+JWT_SECRET=mysupersecretwillkeepindotenv
 ```
 
 ## Available Scripts
