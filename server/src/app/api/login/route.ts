@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { corsHeaders } from "@/utils/cors";
 
-const SECRET_KEY = "your_secret_key"; // Change this in production
+const SECRET_KEY = "mysupersecretwillkeepindotenv"; // Change this in production
 export const runtime = "nodejs"; // 👈 Force Node.js runtime
 
 export async function OPTIONS() {

@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
 
-const SECRET_KEY = "your_secret_key"; // Change this in production
+const SECRET_KEY = "mysupersecretwillkeepindotenv"; // Change this in production
 
 export function verifyToken(req: NextRequest) {
   const authHeader = req.headers.get("authorization");

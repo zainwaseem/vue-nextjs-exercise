@@ -2,7 +2,7 @@ import axios from "axios";
 import router from "../router"; // Import Vue Router
 
 const api = axios.create({
-  baseURL: "hhttps://vue-nextjs-exercise.vercel.app/api",
+  baseURL: "https://vue-nextjs-exercise.vercel.app/api",
   headers: {
     "Content-Type": "application/json",
   },
