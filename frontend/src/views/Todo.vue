@@ -4,7 +4,7 @@
     <div class="header">
       <h1>Todo List</h1>
       <button class="logout-btn" @click="handleLogout">
-        <LogOutIcon size="22" />
+        <LogOutIcon :size="22" />
       </button>
     </div>
 
@@ -17,7 +17,7 @@
         required
       />
       <button type="submit">
-        <SendIcon size="20" />
+        <SendIcon :size="20" />
       </button>
     </form>
 
@@ -26,7 +26,7 @@
       <li v-for="todo in todos" :key="todo.id">
         <span>{{ todo.task }}</span>
         <button class="delete-btn" @click="deleteTodo(todo.id)">
-          <TrashIcon size="20" />
+          <TrashIcon :size="20" />
         </button>
       </li>
     </ul>
