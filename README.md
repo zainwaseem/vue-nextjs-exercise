@@ -8,7 +8,7 @@ Check out the live application: [Vue.js + Next.js Todo App](https://vue-nextjs-e
 
 ## Demo
 
-![Todo App Demo](frontend/assets/Todo_App_Demo.gif)
+![Todo App Demo](frontend/src/assets/Todo_App_Demo.gif)
 
 ## Project Structure
 
