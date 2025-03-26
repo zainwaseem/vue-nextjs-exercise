@@ -23,6 +23,12 @@ export async function POST(req: NextRequest) {
       { status: 401, headers: corsHeaders() }
     );
   } catch (error) {
+    if (error instanceof Error) {
+      console.error("Login error:", error.message);
+    } else {
+      console.error("Login error:", error);
+    }
+
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500, headers: corsHeaders() }

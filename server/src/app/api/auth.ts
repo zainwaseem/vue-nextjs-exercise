@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
 
 const SECRET_KEY = "your_secret_key"; // Change this in production
@@ -13,6 +13,11 @@ export function verifyToken(req: NextRequest) {
   try {
     return jwt.verify(token, SECRET_KEY);
   } catch (error) {
+    if (error instanceof Error) {
+      console.error("Token verification error:", error.message);
+    } else {
+      console.error("Token verification error:", error);
+    }
     return null;
   }
 }

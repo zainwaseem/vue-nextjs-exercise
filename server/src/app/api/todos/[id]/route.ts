@@ -47,12 +47,10 @@ export async function DELETE(req: NextRequest) {
 
     return NextResponse.json(todos, { headers: corsHeaders() });
   } catch (error) {
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      {
-        status: 500,
-        headers: corsHeaders(),
-      }
-    );
+    if (error instanceof Error) {
+      console.error("Delete todo error:", error.message);
+    } else {
+      console.error("Delete todo error:", error);
+    }
   }
 }

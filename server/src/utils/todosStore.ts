@@ -1,1 +1,1 @@
-export let todos: { id: number; task: string }[] = [];
+export const todos: { id: number; task: string }[] = [];
