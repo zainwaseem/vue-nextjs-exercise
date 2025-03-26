@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #f0fdf4;
     margin: 0;
     padding: 0;
 }
@@ -11,4 +11,31 @@ body {
     padding: 20px;
     background: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #065f46;
+}
+
+a {
+    color: #10b981;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #059669;
+}
+
+button {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+input,
+textarea {
+    transition: border-color 0.3s, box-shadow 0.3s;
 }

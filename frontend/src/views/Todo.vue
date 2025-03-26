@@ -3,7 +3,9 @@
     <!-- Header -->
     <div class="header">
       <h1>Todo List</h1>
-      <button class="logout-btn" @click="handleLogout">Logout</button>
+      <button class="logout-btn" @click="handleLogout">
+        <LogOutIcon size="22" />
+      </button>
     </div>
 
     <!-- New Todo Form -->
@@ -14,14 +16,18 @@
         placeholder="Enter new todo"
         required
       />
-      <button type="submit">Add Todo</button>
+      <button type="submit">
+        <PlusIcon size="20" />
+      </button>
     </form>
 
     <!-- Todo List -->
     <ul class="todo-list">
       <li v-for="todo in todos" :key="todo.id">
         <span>{{ todo.task }}</span>
-        <button class="delete-btn" @click="deleteTodo(todo.id)">Delete</button>
+        <button class="delete-btn" @click="deleteTodo(todo.id)">
+          <TrashIcon size="20" />
+        </button>
       </li>
     </ul>
 
@@ -34,6 +40,7 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { LogOutIcon, PlusIcon, TrashIcon } from "lucide-vue-next";
 
 interface Todo {
   id: number;
@@ -42,6 +49,7 @@ interface Todo {
 
 export default {
   name: "Todo",
+  components: { LogOutIcon, PlusIcon, TrashIcon },
   setup() {
     const todos = ref<Todo[]>([]);
     const newTask = ref("");
@@ -80,7 +88,6 @@ export default {
     const deleteTodo = async (id: number) => {
       try {
         const token = localStorage.getItem("token");
-        console.log(id);
         const response = await axios.delete(
           `http://localhost:3000/api/todos/${id}`,
           {
@@ -110,13 +117,14 @@ export default {
 <style scoped>
 /* Custom CSS for the Todo App */
 .todo-container {
-  max-width: 450px;
-  margin: 40px auto;
-  padding: 20px;
-  background: #1e1e1e;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-  color: #fff;
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  color: #333;
+  font-family: "Poppins", sans-serif;
 }
 
 .header {
@@ -129,22 +137,23 @@ export default {
 h1 {
   font-size: 1.8rem;
   font-weight: bold;
+  color: #065f46;
 }
 
 .logout-btn {
-  background: #ff4c4c;
-  color: white;
+  background: none;
   border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
+  font-size: 1.5rem;
+  color: #f87171;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: color 0.3s ease;
 }
 
 .logout-btn:hover {
-  background: #d73838;
+  color: #dc2626;
 }
 
+/* Todo Form */
 .todo-form {
   display: flex;
   gap: 10px;
@@ -153,26 +162,29 @@ h1 {
 
 .todo-form input {
   flex: 1;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
   font-size: 16px;
+  color: #065f46;
 }
 
 .todo-form button {
-  background: #4caf50;
+  background: #10b981;
   color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s ease;
 }
 
 .todo-form button:hover {
-  background: #388e3c;
+  background: #059669;
 }
 
+/* Todo List */
 .todo-list {
   list-style: none;
   padding: 0;
@@ -182,28 +194,34 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #2a2a2a;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
+  background: #e6fffa;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: transform 0.2s ease-in-out;
 }
 
+.todo-list li:hover {
+  transform: scale(1.02);
+}
+
+/* Delete Button */
 .delete-btn {
-  background: #ff4c4c;
-  color: white;
+  background: none;
   border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
+  font-size: 1.3rem;
+  color: #f87171;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: color 0.3s ease;
 }
 
 .delete-btn:hover {
-  background: #d73838;
+  color: #dc2626;
 }
 
+/* Error Message */
 .error {
-  color: #ff4c4c;
+  color: #f87171;
   text-align: center;
   margin-top: 10px;
 }

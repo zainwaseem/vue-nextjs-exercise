@@ -6,21 +6,12 @@ const router = useRouter();
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-primary-100 to-primary-200">
-    <nav class="bg-white shadow-lg">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-          <div class="flex">
-            <div class="flex-shrink-0 flex items-center">
-              <h1 class="text-xl font-bold text-primary-600">Todo App</h1>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="app-container">
+    <nav class="navbar">
+      <h1 class="logo">Todo App</h1>
     </nav>
 
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <!-- Router View with Transition -->
+    <main class="main-content">
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in" appear>
           <component :is="Component" />
@@ -30,4 +21,55 @@ const router = useRouter();
   </div>
 </template>
 
-<style></style>
+<style>
+/* Global App Styles */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom right, #d4f7c5, #a8e6cf);
+  font-family: Arial, sans-serif;
+  padding: 10px;
+}
+
+/* Navbar */
+.navbar {
+  background-color: white;
+  width: 100%;
+  max-width: 800px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2d6a4f;
+  margin: 0;
+}
+
+/* Main Content */
+.main-content {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Fade Transition */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

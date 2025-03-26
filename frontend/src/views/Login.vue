@@ -9,7 +9,7 @@
 
       <form class="login-form" @submit.prevent="handleLogin">
         <div class="form-group">
-          <label for="username" class="visually-hidden">Username</label>
+          <!-- <label for="username" class="visually-hidden">Username</label> -->
           <input
             id="username"
             v-model="username"
@@ -21,7 +21,7 @@
         </div>
 
         <div class="form-group">
-          <label for="password" class="visually-hidden">Password</label>
+          <!-- <label for="password" class="visually-hidden">Password</label> -->
           <input
             id="password"
             v-model="password"
@@ -121,11 +121,12 @@ const handleLogin = async () => {
 
 <style scoped>
 .login-container {
-  min-height: 80vh;
+  min-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  background: linear-gradient(to bottom right, #d1fae5, #a7f3d0);
 }
 
 .login-box {
@@ -133,62 +134,56 @@ const handleLogin = async () => {
   max-width: 400px;
   background: white;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .login-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .login-header h2 {
-  font-size: 1.875rem;
-  font-weight: 800;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #065f46;
 }
 
 .login-subtitle {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: #047857;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.2rem;
+  align-items: center; /* Ensures center alignment */
+  width: 100%;
 }
 
 .form-group {
-  position: relative;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+  width: 100%; /* Ensures input fields take full width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  color: #1f2937;
-  transition: all 0.2s;
+  width: 100%; /* Makes sure input fields take full width */
+  max-width: 100%; /* Prevents extra shifting */
+  padding: 0.8rem;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #065f46;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
 }
 
 input:disabled {
@@ -197,24 +192,27 @@ input:disabled {
 }
 
 .login-button {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 0.75rem 1.5rem;
-  background-color: #2563eb;
+  padding: 0.9rem;
+  background-color: #10b981;
   color: white;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.3s ease;
 }
 
 .login-button:hover {
-  background-color: #1d4ed8;
+  background-color: #059669;
+}
+
+.login-button:active {
+  background-color: #047857;
 }
 
 .login-button:disabled {
@@ -223,10 +221,9 @@ input:disabled {
 }
 
 .button-icon {
-  position: absolute;
-  left: 1rem;
-  width: 1.25rem;
-  height: 1.25rem;
+  margin-right: 8px;
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 .error-message {
@@ -235,14 +232,13 @@ input:disabled {
   gap: 0.5rem;
   padding: 1rem;
   background-color: #fee2e2;
-  border-radius: 4px;
+  border-radius: 6px;
   color: #991b1b;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
 }
 
 .error-icon {
-  flex-shrink: 0;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.2rem;
+  height: 1.2rem;
 }
 </style>
